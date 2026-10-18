@@ -147,6 +147,13 @@ Open the following URL in your browser:
 
 `http://127.0.0.1:8000/`
 
+## Live Website
+
+- **VELOURA Store:** https://veloura-store-ndz9.onrender.com
+- **Django Admin Panel:** https://veloura-store-ndz9.onrender.com/admin/
+
+Note: Admin panel requires authorized administrator credentials.
+
 ## Security
 
 - Do not upload passwords, secret keys, or database credentials.
