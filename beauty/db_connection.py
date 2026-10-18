@@ -1,3 +1,5 @@
+
+import os
 from pymongo import MongoClient
 from pymongo.errors import PyMongoError
 
@@ -6,21 +8,20 @@ from pymongo.errors import PyMongoError
 # MONGODB CONNECTION
 # =====================================================
 
-MONGO_URI = "mongodb://localhost:27017/"
-DATABASE_NAME = "Beauty_store"
+MONGO_URI = os.environ.get(
+    "MONGODB_URI",
+    "mongodb://localhost:27017/"
+)
+
+DATABASE_NAME = os.environ.get(
+    "MONGODB_DB_NAME",
+    "Beauty_store"
+)
 
 client = MongoClient(
     MONGO_URI,
-    serverSelectionTimeoutMS=5000,
+    serverSelectionTimeoutMS=10000,
 )
-
-# Check whether MongoDB is reachable.
-try:
-    client.admin.command("ping")
-    print("MongoDB connected successfully!")
-except PyMongoError as error:
-    print("MongoDB connection failed:", error)
-    raise
 
 
 # =====================================================
@@ -40,3 +41,4 @@ orders_collection = db["Orders"]
 cart_collection = db["Cart"]
 reviews_collection = db["Reviews"]
 followers_collection = db["Followers"]
+

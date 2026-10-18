@@ -22,3 +22,6 @@ env/
 *.sqlite3
 .vscode/
 
+staticfiles/
+__pycache__/
+*.py[cod]
