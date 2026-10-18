@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOURA | Admin Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff5f5, #f8e5eb);
+            color: #392a2e;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 35px;
+            background: #ffffff;
+            border: 1px solid #f0dce3;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(155, 99, 115, 0.12);
+        }
+
+        .logo {
+            margin: 0;
+            text-align: center;
+            letter-spacing: 5px;
+            color: #a34f6d;
+            font-size: 30px;
+        }
+
+        .tagline {
+            margin: 8px 0 25px;
+            text-align: center;
+            color: #946477;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            margin: 0 0 25px;
+            text-align: center;
+            font-size: 22px;
+            color: #392a2e;
+        }
+
+        label {
+            display: block;
+            margin: 16px 0 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #e4c6d0;
+            border-radius: 8px;
+            background: #fffdfd;
+            color: #392a2e;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            border-color: #a34f6d;
+            box-shadow: 0 0 0 3px rgba(163, 79, 109, 0.12);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #a34f6d;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #843b56;
+            transform: translateY(-1px);
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 7px;
+            background: #fff0f0;
+            color: #9b3048;
+            margin-bottom: 12px;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #946477;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: #843b56;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 25px 20px;
+            }
+
+            .logo {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-card">
+        <h1 class="logo">VELOURA</h1>
+        <p class="tagline">beauty, of your own aura</p>
+
+        <h2>Admin Login</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'admin_login' %}">
+            {% csrf_token %}
+
+            <label for="username">Admin Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter admin username"
+                autocomplete="username"
+                required
+                autofocus
+            >
+
+            <label for="password">Admin Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter admin password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit">Login to Dashboard</button>
+        </form>
+
+        <a class="back-link" href="{% url 'home' %}">
+            ← Back to VELOURA Store
+        </a>
+    </main>
+</body>
+</html>

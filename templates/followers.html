@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOURA | Followers</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: #fff9f7;
+            color: #392a2e;
+        }
+        main { max-width: 850px; margin: auto; }
+        section {
+            padding: 20px;
+            margin: 18px 0;
+            background: white;
+            border-radius: 12px;
+        }
+        li {
+            margin: 12px 0;
+            padding: 10px;
+            border-bottom: 1px solid #f1e5e8;
+        }
+        a { color: #a34f6d; }
+        button {
+            padding: 8px 14px;
+            background: #a34f6d;
+            border: 0;
+            border-radius: 7px;
+            color: white;
+            cursor: pointer;
+        }
+        .messages {
+            padding: 10px;
+            background: #f4dfe3;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <h1>VELOURA</h1>
+    <h2>Followers & Following</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="messages">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <section>
+        <h3>People You Follow</h3>
+        <ul>
+            {% for person in following_users %}
+                <li>
+                    {{ person.full_name }}
+                    <form method="POST" action="{% url 'follow_user' person.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Unfollow</button>
+                    </form>
+                </li>
+            {% empty %}
+                <li>You are not following anyone yet.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h3>Discover Customers</h3>
+        <ul>
+            {% for person in other_users %}
+                <li>
+                    {{ person.full_name }}
+                    <form method="POST" action="{% url 'follow_user' person.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Follow / Unfollow</button>
+                    </form>
+                </li>
+            {% empty %}
+                <li>No other customers found.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <p><a href="{% url 'home' %}">Back to Home</a></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VELOURA | Beauty Products</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff9f7;
+            color: #392a2e;
+        }
+
+        header {
+            background: #f4dfe3;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .logo {
+            font-size: 25px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            color: #7d4359;
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #392a2e;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #a34f6d;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 45px 20px 30px;
+        }
+
+        .hero .tagline {
+            color: #a34f6d;
+            letter-spacing: 3px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            color: #7d4359;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #806b72;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto 35px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-form input {
+            flex: 1;
+            min-width: 0;
+            padding: 13px 15px;
+            border: 1px solid #e4c5cf;
+            border-radius: 8px;
+            background: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-form input:focus {
+            border-color: #a34f6d;
+        }
+
+        .search-form button {
+            border: none;
+            background: #a34f6d;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background: #813b55;
+        }
+
+        .messages {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 20px;
+        }
+
+        .message {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: #f4dfe3;
+            color: #713d52;
+        }
+
+        .section-heading {
+            text-align: center;
+            color: #7d4359;
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+
+        .product-grid {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border: 1px solid #f0dce2;
+            border-radius: 13px;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(100, 55, 70, 0.1);
+        }
+
+        .image-container {
+            width: 100%;
+            height: 230px;
+            padding: 12px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .image-placeholder {
+            height: 100%;
+            width: 100%;
+            background: #f7e9ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #946477;
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        .product-info {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .brand {
+            color: #a34f6d;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            color: #49353d;
+            font-size: 17px;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .category {
+            color: #946477;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #806b72;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            flex: 1;
+        }
+
+        .price {
+            color: #7d4359;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 8px 0 15px;
+        }
+
+        .details-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #a34f6d;
+            color: #a34f6d;
+            background: #ffffff;
+            padding: 11px 8px;
+            border-radius: 7px;
+            font-size: 13px;
+            margin-bottom: 9px;
+            transition: all 0.25s;
+        }
+
+        .details-button:hover {
+            background: #f8e9ed;
+        }
+
+        .add-form {
+            width: 100%;
+        }
+
+        .add-button {
+            width: 100%;
+            border: none;
+            background: #a34f6d;
+            color: #ffffff;
+            padding: 12px 8px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.25s;
+        }
+
+        .add-button:hover {
+            background: #813b55;
+        }
+
+        .empty-products {
+            grid-column: 1 / -1;
+            background: #ffffff;
+            border: 1px solid #f0dce2;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #806b72;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: #f4dfe3;
+            text-align: center;
+            padding: 25px 15px;
+            color: #806b72;
+            font-size: 12px;
+        }
+
+        @media (max-width: 1000px) {
+            .product-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 14px;
+            }
+
+            .image-container {
+                height: 180px;
+            }
+
+            .product-info {
+                padding: 12px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-container {
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">VELOURA</div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'products' %}">Products</a>
+        <a href="{% url 'cart' %}">My Cart</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'my_orders' %}">My Orders</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="tagline">BEAUTY, OF YOUR OWN AURA</div>
+    <h1>Our Beauty Collection</h1>
+    <p>
+        Discover your favourites and find the products that suit your
+        everyday beauty routine.
+    </p>
+</section>
+
+<div class="search-container">
+    <form method="GET" action="{% url 'products' %}" class="search-form">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search products, brands or categories..."
+            value="{{ search_query|default:'' }}"
+        >
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+<h2 class="section-heading">Explore Our Products</h2>
+
+<section class="product-grid">
+
+    {% for product in products %}
+
+        <article class="product-card">
+
+            <div class="image-container">
+                {% if product.image_url %}
+                    <img
+                        class="product-image"
+                        src="{{ product.image_url }}"
+                        alt="{{ product.name }}"
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                    <div class="image-placeholder" style="display:none;">
+                        Image unavailable
+                    </div>
+                {% else %}
+                    <div class="image-placeholder">
+                        Product image coming soon
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="product-info">
+
+                <div class="brand">
+                    {{ product.brand|default:"Beauty Brand" }}
+                </div>
+
+                <h3 class="product-name">
+                    {{ product.name|default:"Beauty Product" }}
+                </h3>
+
+                <div class="category">
+                    {{ product.category|default:"Beauty" }}
+                </div>
+
+                <p class="description">
+                    {{ product.description|default:"Discover a beauty essential for your daily routine."|truncatewords:18 }}
+                </p>
+
+                <div class="price">
+                    ₹{{ product.price|default:0|floatformat:2 }}
+                </div>
+
+                <a
+                    class="details-button"
+                    href="{% url 'product_detail' product_id=product.id %}"
+                >
+                    View Details
+                </a>
+
+                <form
+                    class="add-form"
+                    method="POST"
+                    action="{% url 'add_to_cart' product_id=product.id %}"
+                >
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+
+                    <button class="add-button" type="submit">
+                        Add to Cart
+                    </button>
+                </form>
+
+            </div>
+
+        </article>
+
+    {% empty %}
+
+        <div class="empty-products">
+            <h3>No products found</h3>
+            <p>
+                Try another search term or check back later for our
+                beauty collection.
+            </p>
+        </div>
+
+    {% endfor %}
+
+</section>
+
+<footer>
+    VELOURA — Beauty, of your own aura.
+</footer>
+
+</body>
+</html>
+

@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOURA | Admin Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff9f7;
+            color: #392a2e;
+        }
+
+        header {
+            background: #f4dfe3;
+            padding: 22px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            margin: 0;
+            letter-spacing: 4px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-style: italic;
+        }
+
+        .logout {
+            background: #a34f6d;
+            color: white;
+            padding: 11px 16px;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2, h3 {
+            color: #a34f6d;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 18px;
+            margin: 22px 0 32px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 23px;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px #0000000c;
+            border-top: 4px solid #d89bad;
+        }
+
+        .stat-card p {
+            margin: 0 0 12px;
+            color: #765764;
+        }
+
+        .stat-card strong {
+            font-size: 27px;
+            color: #843c56;
+            overflow-wrap: anywhere;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 18px #0000000c;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+            margin-bottom: 25px;
+        }
+
+        .chart-panel {
+            background: white;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 18px #0000000c;
+            min-width: 0;
+        }
+
+        .chart-panel h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .chart-wide {
+            grid-column: 1 / -1;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 580px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 13px 12px;
+            border-bottom: 1px solid #f0e3e6;
+        }
+
+        th {
+            background: #fff0f3;
+            color: #843c56;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #f7e9ed;
+            color: #843c56;
+            border-radius: 18px;
+            padding: 6px 10px;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-links a {
+            background: #a34f6d;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .quick-links a:hover,
+        .logout:hover {
+            background: #843c56;
+        }
+
+        .message {
+            background: #fff0f3;
+            color: #843c56;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .empty {
+            color: #946477;
+            padding: 15px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #946477;
+        }
+
+        @media (max-width: 700px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-wide {
+                grid-column: auto;
+            }
+
+            .chart-container {
+                height: 260px;
+            }
+
+            .panel,
+            .chart-panel {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <div>
+        <h1 class="logo">VELOURA</h1>
+        <p>Admin Control Center</p>
+    </div>
+
+    <a class="logout" href="{% url 'admin_logout' %}">
+        Admin Logout
+    </a>
+</header>
+
+<main>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <section class="welcome">
+        <h2>Welcome, {{ admin_username|default:"Admin" }}!</h2>
+        <p>Manage your store, products, customers and orders from here.</p>
+    </section>
+
+    <!-- Dashboard statistics -->
+    <section class="stats">
+        <div class="stat-card">
+            <p>Total Products</p>
+            <strong>{{ total_products|default:0 }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <p>Active Products</p>
+            <strong>{{ active_products|default:0 }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <p>Registered Users</p>
+            <strong>{{ total_users|default:0 }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <p>Total Orders</p>
+            <strong>{{ total_orders|default:0 }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <p>Cart Records</p>
+            <strong>{{ total_cart_items|default:0 }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <p>Order Value Total</p>
+            <strong>₹{{ sales_total|default:0 }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <p>COD Orders</p>
+            <strong>{{ cod_orders|default:0 }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <p>Pending Payments</p>
+            <strong>{{ pending_orders|default:0 }}</strong>
+        </div>
+    </section>
+
+    <!-- Dashboard graphs -->
+    <section class="charts-grid">
+
+        <div class="chart-panel chart-wide">
+            <h3>Monthly Order Value — Last 6 Months</h3>
+            <div class="chart-container">
+                <canvas id="salesChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-panel">
+            <h3>Order &amp; Payment Status Breakdown</h3>
+            <div class="chart-container">
+                <canvas id="orderStatusChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-panel">
+            <h3>Best-Selling Products</h3>
+            <div class="chart-container">
+                <canvas id="productsChart"></canvas>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Recent products -->
+    <section class="panel">
+        <h3>Recent Products</h3>
+
+        {% if recent_products %}
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for product in recent_products %}
+                            <tr>
+                                <td>{{ product.name|default:"Unnamed Product" }}</td>
+                                <td>{{ product.brand|default:"—" }}</td>
+                                <td>₹{{ product.price|default:0 }}</td>
+                                <td>
+                                    {% if product.is_active %}
+                                        <span class="badge">Active</span>
+                                    {% else %}
+                                        <span class="badge">Inactive</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="empty">No products found in the database.</p>
+        {% endif %}
+    </section>
+
+    <!-- Quick links -->
+    <section class="panel">
+        <h3>Quick Links</h3>
+
+        <div class="quick-links">
+            <a href="{% url 'products' %}">View Store</a>
+            <a href="{% url 'home' %}">Home Page</a>
+            <a href="{% url 'admin_logout' %}">Sign Out</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    VELOURA Admin Dashboard · Beauty, of your own aura
+</footer>
+
+<!-- Safely pass Django data to JavaScript -->
+{{ monthly_sales_labels|json_script:"monthly-sales-labels" }}
+{{ monthly_sales_values|json_script:"monthly-sales-values" }}
+{{ order_status_labels|json_script:"order-status-labels" }}
+{{ order_status_values|json_script:"order-status-values" }}
+{{ best_selling_labels|json_script:"best-selling-labels" }}
+{{ best_selling_values|json_script:"best-selling-values" }}
+
+<script>
+    function getChartData(elementId) {
+        const element = document.getElementById(elementId);
+
+        if (!element) {
+            return [];
+        }
+
+        try {
+            return JSON.parse(element.textContent);
+        } catch (error) {
+            console.error(
+                "Could not read chart data:",
+                elementId,
+                error
+            );
+            return [];
+        }
+    }
+
+    const pink = "#d98da7";
+    const darkPink = "#a34f6d";
+    const lightPink = "#f4dfe3";
+    const cream = "#fff0e8";
+
+    const monthlyLabels = getChartData("monthly-sales-labels");
+    const monthlyValues = getChartData("monthly-sales-values");
+
+    const orderLabels = getChartData("order-status-labels");
+    const orderValues = getChartData("order-status-values");
+
+    const productLabels = getChartData("best-selling-labels");
+    const productValues = getChartData("best-selling-values");
+
+    if (typeof Chart !== "undefined") {
+
+        // Graph 1: Monthly order value
+        new Chart(document.getElementById("salesChart"), {
+            type: "bar",
+            data: {
+                labels: monthlyLabels,
+                datasets: [{
+                    label: "Order Value (₹)",
+                    data: monthlyValues,
+                    backgroundColor: pink,
+                    borderColor: darkPink,
+                    borderWidth: 1,
+                    borderRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return "₹" + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Graph 2: Order and payment statuses
+        // Uses the combined labels and counts calculated in views.py
+        new Chart(document.getElementById("orderStatusChart"), {
+            type: "doughnut",
+            data: {
+                labels: orderLabels,
+                datasets: [{
+                    label: "Number of Orders",
+                    data: orderValues,
+                    backgroundColor: [
+                        "#a34f6d",
+                        "#f2a6bd",
+                        "#d9b7c5",
+                        "#c7a2b0",
+                        "#fff0e8",
+                        "#946477",
+                        "#e8c4d2",
+                        "#ba6b8a"
+                    ],
+                    borderWidth: 2,
+                    borderColor: "#ffffff"
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ": " + context.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Graph 3: Best-selling products
+        new Chart(document.getElementById("productsChart"), {
+            type: "bar",
+            data: {
+                labels: productLabels,
+                datasets: [{
+                    label: "Quantity Ordered",
+                    data: productValues,
+                    backgroundColor: pink,
+                    borderColor: darkPink,
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                indexAxis: "y",
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+
+    } else {
+        console.error(
+            "Chart.js did not load. Check your internet connection."
+        );
+    }
+</script>
+
+</body>
+</html>

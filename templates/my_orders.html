@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOURA | My Orders</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff9f7;
+            color: #392a2e;
+        }
+
+        header {
+            background: #f4dfe3;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .logo {
+            font-size: 25px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            color: #7d4359;
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #392a2e;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #a34f6d;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .page-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            color: #7d4359;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-heading p {
+            color: #806b72;
+            font-size: 14px;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: #f4dfe3;
+            color: #713d52;
+        }
+
+        .order-card {
+            background: #ffffff;
+            border: 1px solid #f0dce2;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 5px 18px rgba(100, 55, 70, 0.06);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #f1e5e8;
+        }
+
+        .order-id {
+            color: #7d4359;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .order-date {
+            font-size: 14px;
+            color: #806b72;
+            line-height: 1.7;
+        }
+
+        .status {
+            display: inline-block;
+            background: #f8e9ed;
+            color: #87445e;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 3px 3px 3px 0;
+        }
+
+        .section-title {
+            color: #7d4359;
+            font-size: 16px;
+            margin: 20px 0 12px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f6edef;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #49353d;
+            margin-bottom: 6px;
+        }
+
+        .item-details {
+            color: #806b72;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .item-price {
+            color: #7d4359;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .order-footer {
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid #f1e5e8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .total-label {
+            color: #806b72;
+            font-size: 14px;
+        }
+
+        .total-amount {
+            color: #7d4359;
+            font-size: 23px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .view-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #a34f6d;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 7px;
+            font-size: 13px;
+            transition: background 0.3s;
+        }
+
+        .view-button:hover {
+            background: #813b55;
+        }
+
+        .empty-orders {
+            background: white;
+            border: 1px solid #f0dce2;
+            border-radius: 14px;
+            padding: 45px 20px;
+            text-align: center;
+        }
+
+        .empty-orders h2 {
+            color: #7d4359;
+            margin-bottom: 12px;
+        }
+
+        .empty-orders p {
+            color: #806b72;
+            margin-bottom: 22px;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #806b72;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 25px;
+            }
+
+            .order-card {
+                padding: 18px;
+            }
+
+            .page-heading h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">VELOURA</div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'products' %}">Products</a>
+        <a href="{% url 'cart' %}">My Cart</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'my_orders' %}" class="active">My Orders</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <div class="page-heading">
+        <h1>My Orders</h1>
+        <p>View your purchases, order dates and order details.</p>
+    </div>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if orders %}
+        {% for order in orders %}
+
+            <section class="order-card">
+
+                <div class="order-header">
+                    <div>
+                        <div class="order-id">
+                            Order ID: {{ order.id }}
+                        </div>
+
+                        <div class="order-date">
+                            <strong>Order Date &amp; Time:</strong>
+
+                            {% if order.display_order_date %}
+                                {{ order.display_order_date|date:"d M Y, h:i A" }} IST
+                            {% elif order.order_date %}
+                                {{ order.order_date|date:"d M Y, h:i A" }}
+                            {% elif order.created_at %}
+                                {{ order.created_at|date:"d M Y, h:i A" }}
+                            {% else %}
+                                Date not available
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="status">
+                            {{ order.order_status|default:"Placed" }}
+                        </span>
+
+                        <span class="status">
+                            Payment: {{ order.payment_status|default:"Pending" }}
+                        </span>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Products Ordered</h3>
+
+                {% if order.items %}
+                    {% for item in order.items %}
+                        <div class="item">
+                            <div>
+                                <div class="item-name">
+                                    {{ item.name|default:"Beauty Product" }}
+                                </div>
+
+                                <div class="item-details">
+                                    {% if item.brand %}
+                                        Brand: {{ item.brand }}<br>
+                                    {% endif %}
+
+                                    Quantity: {{ item.quantity|default:1 }}
+                                </div>
+                            </div>
+
+                            <div class="item-price">
+                                ₹{{ item.subtotal|default:0|floatformat:2 }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="item-details">Product details are not available.</p>
+                {% endif %}
+
+                <div class="order-footer">
+                    <div>
+                        <div class="total-label">Total Amount</div>
+
+                        <div class="total-amount">
+                            ₹{{ order.total|default:0|floatformat:2 }}
+                        </div>
+
+                        <div class="item-details">
+                            Payment Method:
+                            {{ order.payment_method|default:"COD" }}
+                        </div>
+                    </div>
+
+                    <a
+                        class="view-button"
+                        href="{% url 'view_order' order_id=order.id %}"
+                    >
+                        View Order Details
+                    </a>
+                </div>
+
+            </section>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-orders">
+            <h2>No Orders Yet</h2>
+            <p>
+                You haven't placed any orders yet.<br>
+                Explore our beauty collection and find your favourites.
+            </p>
+
+            <a href="{% url 'products' %}" class="view-button">
+                Explore Products
+            </a>
+        </div>
+
+    {% endif %}
+
+</main>
+
+<footer>
+    VELOURA — Beauty, of your own aura.
+</footer>
+
+</body>
+</html>

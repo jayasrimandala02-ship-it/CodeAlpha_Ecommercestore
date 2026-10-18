@@ -1,0 +1,220 @@
+
+/* VELOURA - Shared premium beauty theme */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #593640;
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+    background: linear-gradient(135deg, #fff4ef, #f8dce0, #fff8ef);
+}
+
+.auth-layout {
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    width: 100%;
+    max-width: 1150px;
+    min-height: 650px;
+    overflow: hidden;
+    border-radius: 25px;
+    background: #fffaf6;
+    box-shadow: 0 20px 60px rgba(115, 54, 69, 0.15);
+}
+
+/* Left panel with beauty products */
+.brand-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 45px;
+    overflow: hidden;
+    color: #6b3341;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 235, 231, 0.90),
+            rgba(255, 229, 224, 0.25) 65%,
+            rgba(100, 48, 53, 0.10)
+        ),
+        url("https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1400&q=85")
+        center / cover no-repeat;
+}
+
+.brand-name {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: clamp(36px, 4vw, 55px);
+    font-weight: 500;
+    letter-spacing: 5px;
+}
+
+.brand-tagline {
+    margin-top: 12px;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.brand-caption {
+    max-width: 360px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    background: rgba(255, 250, 246, 0.78);
+    backdrop-filter: blur(8px);
+}
+
+.brand-caption h2 {
+    margin: 0 0 8px;
+    font-family: Georgia, serif;
+    font-size: 27px;
+    font-weight: 500;
+}
+
+.brand-caption p {
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* Right panel and form */
+.form-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 35px;
+    background: rgba(255, 250, 246, 0.96);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 390px;
+}
+
+.auth-card h2 {
+    margin: 0 0 10px;
+    color: #6b3341;
+    font-family: Georgia, serif;
+    font-size: 32px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.auth-subtitle {
+    margin: 0 0 28px;
+    color: #95757a;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    min-height: 49px;
+    padding: 13px 15px;
+    border: 1px solid #ead5d3;
+    border-radius: 10px;
+    outline: none;
+    background: #fffdfb;
+    color: #593640;
+    font-size: 15px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #cf8493;
+    box-shadow: 0 0 0 3px rgba(207, 132, 147, 0.15);
+}
+
+.auth-button {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #d98d9a, #bf687c);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.auth-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(191, 104, 124, 0.25);
+}
+
+.auth-footer {
+    margin-top: 25px;
+    color: #95757a;
+    font-size: 14px;
+    text-align: center;
+}
+
+.auth-footer a {
+    margin-left: 5px;
+    color: #b95370;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.auth-error {
+    margin-bottom: 18px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #fff0f0;
+    color: #a52d42;
+    font-size: 14px;
+}
+
+@media (max-width: 760px) {
+    .auth-page {
+        padding: 15px;
+    }
+
+    .auth-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .brand-panel {
+        min-height: 300px;
+        padding: 28px;
+    }
+
+    .brand-caption {
+        margin-top: 45px;
+    }
+
+    .form-panel {
+        padding: 35px 25px;
+    }
+
+    .brand-name {
+        font-size: 38px;
+    }
+}
+

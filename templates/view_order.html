@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOURA | Order Details</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff9f7;
+            color: #392a2e;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #f4dfe3;
+            padding: 22px 6%;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #7d4359;
+            letter-spacing: 5px;
+            font-size: 28px;
+        }
+
+        header p {
+            margin-top: 5px;
+            font-style: italic;
+            color: #806b72;
+        }
+
+        main {
+            width: 92%;
+            max-width: 850px;
+            margin: 30px auto;
+        }
+
+        .page-heading {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .page-heading h2 {
+            color: #7d4359;
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .page-heading p {
+            color: #806b72;
+            font-size: 14px;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 24px;
+            margin-bottom: 22px;
+            border: 1px solid #f0dce2;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+            overflow-wrap: anywhere;
+        }
+
+        .card h3 {
+            color: #a34f6d;
+            font-size: 19px;
+            margin-bottom: 17px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f1e5e8;
+        }
+
+        .detail {
+            margin: 12px 0;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .detail strong {
+            color: #49353d;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 12px;
+            background: #f7e9ed;
+            color: #843c56;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .payment-note {
+            background: #fff5f7;
+            border-left: 4px solid #a34f6d;
+            padding: 12px 15px;
+            margin-top: 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #806b72;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 17px 0;
+            border-bottom: 1px solid #f0e3e6;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-name {
+            color: #49353d;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .item-brand {
+            color: #806b72;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .item-detail {
+            color: #806b72;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .item-price {
+            color: #843c56;
+            font-weight: bold;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .total {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #ead4da;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 8px 0;
+            color: #806b72;
+        }
+
+        .total-final {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px dashed #ead4da;
+            font-weight: bold;
+            font-size: 22px;
+            color: #843c56;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 8px;
+            background: #a34f6d;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #843c56;
+        }
+
+        .button-secondary {
+            background: #f4dfe3;
+            color: #663d4d;
+        }
+
+        .button-secondary:hover {
+            background: #eacbd4;
+        }
+
+        .empty-message {
+            color: #806b72;
+            padding: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #806b72;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px 12px;
+            }
+
+            header h1 {
+                font-size: 24px;
+                letter-spacing: 4px;
+            }
+
+            main {
+                width: 94%;
+                margin-top: 20px;
+            }
+
+            .page-heading h2 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .item {
+                gap: 12px;
+            }
+
+            .item-price {
+                font-size: 14px;
+            }
+
+            .total-final {
+                font-size: 19px;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>VELOURA</h1>
+    <p>beauty, of your own aura</p>
+</header>
+
+<main>
+
+    <div class="page-heading">
+        <h2>Order Details</h2>
+        <p>View your order, payment and delivery information.</p>
+    </div>
+
+    <!-- ORDER SUMMARY -->
+    <section class="card">
+        <h3>Order Information</h3>
+
+        <div class="detail">
+            <strong>Order ID:</strong>
+            {{ order.id }}
+        </div>
+
+        <div class="detail">
+            <strong>Order Date &amp; Time:</strong>
+            {% if order.display_order_date %}
+                {{ order.display_order_date|date:"d M Y, h:i A" }} IST
+            {% else %}
+                Date not available
+            {% endif %}
+        </div>
+
+        <div class="detail">
+            <strong>Order Status:</strong>
+            <span class="status">
+                {{ order.order_status|default:"Placed" }}
+            </span>
+        </div>
+
+        <div class="detail">
+            <strong>Payment Method:</strong>
+            {{ order.payment_method|default:"COD" }}
+        </div>
+
+        <div class="detail">
+            <strong>Payment Status:</strong>
+            <span class="status">
+                {{ order.payment_status|default:"Pending" }}
+            </span>
+        </div>
+
+        {% if order.payment_method == "COD" %}
+            <div class="payment-note">
+                Cash on Delivery (COD): Please pay when your order is delivered.
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- DELIVERY INFORMATION -->
+    <section class="card">
+        <h3>Delivery Information</h3>
+
+        <div class="detail">
+            <strong>Customer Name:</strong>
+            {{ delivery.full_name|default:order.customer_name|default:"Not available" }}
+        </div>
+
+        <div class="detail">
+            <strong>Phone Number:</strong>
+            {{ delivery.phone|default:order.phone|default:"Not available" }}
+        </div>
+
+        <div class="detail">
+            <strong>Delivery Address:</strong><br>
+
+            {% if delivery.address %}
+                {{ delivery.address }}
+
+                {% if delivery.city %}
+                    , {{ delivery.city }}
+                {% endif %}
+
+                {% if delivery.state %}
+                    , {{ delivery.state }}
+                {% endif %}
+
+                {% if delivery.pincode %}
+                    - {{ delivery.pincode }}
+                {% endif %}
+            {% else %}
+                {{ delivery|default:"Not available" }}
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- ORDERED PRODUCTS -->
+    <section class="card">
+        <h3>Products Ordered</h3>
+
+        {% if order.items %}
+            {% for item in order.items %}
+                <div class="item">
+
+                    <div class="item-info">
+                        <div class="item-name">
+                            {{ item.name|default:"Beauty Product" }}
+                        </div>
+
+                        {% if item.brand %}
+                            <div class="item-brand">
+                                Brand: {{ item.brand }}
+                            </div>
+                        {% endif %}
+
+                        <div class="item-detail">
+                            Quantity: {{ item.quantity|default:1 }}
+                        </div>
+
+                        <div class="item-detail">
+                            Unit Price:
+                            ₹{{ item.price|default:0|floatformat:2 }}
+                        </div>
+                    </div>
+
+                    <div class="item-price">
+                        ₹{{ item.subtotal|default:0|floatformat:2 }}
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="empty-message">
+                No product details are available for this order.
+            </p>
+        {% endif %}
+
+        <!-- ORDER TOTAL -->
+        <div class="total">
+            <div class="total-final">
+                <span>Total Amount</span>
+                <span>₹{{ order.total|default:0|floatformat:2 }}</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NAVIGATION BUTTONS -->
+    <div class="button-container">
+        <a class="button" href="{% url 'my_orders' %}">
+            My Orders
+        </a>
+
+        <a class="button button-secondary" href="{% url 'products' %}">
+            Continue Shopping
+        </a>
+    </div>
+
+</main>
+
+<footer>
+    VELOURA — Beauty, of your own aura.
+</footer>
+
+</body>
+</html>
+

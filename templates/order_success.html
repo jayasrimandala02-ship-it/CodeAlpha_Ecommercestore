@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOURA | Order Confirmed</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #fff9f7;
+            color: #392a2e;
+            text-align: center;
+        }
+        .card {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 40px 25px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px #0000000d;
+        }
+        h1 { color: #8d4e66; }
+        .check { font-size: 55px; color: #8d4e66; }
+        a {
+            display: inline-block;
+            margin: 12px 6px;
+            padding: 13px 20px;
+            border-radius: 8px;
+            background: #8d4e66;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .secondary { background: #f4dfe3; color: #663d4d; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="check">✓</div>
+        <h1>Thank You for Your Order!</h1>
+        <p>Your VELOURA order has been recorded successfully.</p>
+
+        {% if order_id %}
+            <p><strong>Order ID:</strong> {{ order_id }}</p>
+        {% endif %}
+
+        
+{% if order %}
+    <p><strong>Total:</strong> ₹{{ order.total|floatformat:2 }}</p>
+    <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+    <p><strong>Payment Status:</strong> {{ order.payment_status }}</p>
+
+    {% if order.display_order_date %}
+        <p>
+            <strong>Order Date:</strong>
+            {{ order.display_order_date|date:"d M Y" }}
+        </p>
+        <p>
+            <strong>Order Time:</strong>
+            {{ order.display_order_date|date:"h:i A" }} IST
+        </p>
+    {% endif %}
+{% endif %}
+
+
+        <a href="{% url 'my_orders' %}">View My Orders</a>
+        <a class="secondary" href="{% url 'products' %}">Continue Shopping</a>
+    </div>
+</body>
+</html>

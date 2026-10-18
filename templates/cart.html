@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VELOURA | Shopping Cart</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff9f7;
+            color: #392a2e;
+        }
+
+        header {
+            background: #f4dfe3;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: #7d4359;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #663d4d;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #a34f6d;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 40px auto;
+            padding: 0 20px;
+            min-height: 55vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #8d4e66;
+            margin-bottom: 12px;
+        }
+
+        .intro {
+            text-align: center;
+            color: #806b72;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            background: #f9e7ec;
+            color: #663d4d;
+            padding: 13px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            background: white;
+            border: 1px solid #f4e5e9;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 15px #0000000a;
+            flex-wrap: wrap;
+        }
+
+        .product-image {
+            width: 115px;
+            height: 125px;
+            object-fit: contain;
+            background: #fff9f7;
+            border-radius: 9px;
+            flex-shrink: 0;
+        }
+
+        .image-placeholder {
+            width: 115px;
+            height: 125px;
+            flex-shrink: 0;
+            background: #f7e9ed;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8px;
+            color: #946477;
+            font-size: 12px;
+        }
+
+        .product-info {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .product-info h3 {
+            margin: 0 0 8px;
+            color: #754357;
+            font-size: 17px;
+        }
+
+        .product-name {
+            margin: 0 0 10px;
+            color: #392a2e;
+            line-height: 1.5;
+        }
+
+        .price {
+            color: #8d4e66;
+            font-weight: bold;
+        }
+
+        .quantity-form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        input[type="number"] {
+            width: 65px;
+            padding: 9px;
+            border: 1px solid #dfbfc9;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        button,
+        .btn {
+            display: inline-block;
+            border: none;
+            border-radius: 7px;
+            padding: 11px 16px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .update-btn {
+            background: #f4dfe3;
+            color: #663d4d;
+        }
+
+        .update-btn:hover {
+            background: #edcbd5;
+        }
+
+        .remove-btn {
+            background: #fff0f0;
+            color: #b43e50;
+        }
+
+        .remove-btn:hover {
+            background: #fbdada;
+        }
+
+        .summary {
+            margin-top: 28px;
+            padding: 25px;
+            border-radius: 14px;
+            background: white;
+            border: 1px solid #f4e5e9;
+            box-shadow: 0 4px 15px #0000000a;
+        }
+
+        .summary h2 {
+            color: #754357;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 21px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 12px 0;
+            line-height: 1.5;
+        }
+
+        .grand-total {
+            border-top: 1px solid #ead5db;
+            padding-top: 18px;
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #8d4e66;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .continue-btn {
+            background: #f4dfe3;
+            color: #663d4d;
+        }
+
+        .continue-btn:hover {
+            background: #edcbd5;
+        }
+
+        .checkout-btn {
+            background: #8d4e66;
+            color: white;
+            padding: 14px 24px;
+        }
+
+        .checkout-btn:hover {
+            background: #74384f;
+        }
+
+        .empty-cart {
+            background: white;
+            padding: 45px 20px;
+            text-align: center;
+            border: 1px solid #f4e5e9;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px #0000000a;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .empty-cart h2 {
+            color: #754357;
+        }
+
+        .empty-cart p {
+            color: #806b72;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 22px 15px;
+            text-align: center;
+            background: #f4dfe3;
+            color: #806b72;
+            font-size: 13px;
+        }
+
+        @media (max-width: 760px) {
+            header {
+                justify-content: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .cart-item {
+                align-items: flex-start;
+            }
+
+            .quantity-form {
+                width: 100%;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .actions .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin-top: 25px;
+                padding: 0 14px;
+            }
+
+            .cart-item {
+                padding: 16px;
+                gap: 14px;
+            }
+
+            .product-image,
+            .image-placeholder {
+                width: 90px;
+                height: 105px;
+            }
+
+            .product-info {
+                min-width: 130px;
+            }
+
+            .grand-total {
+                font-size: 19px;
+            }
+
+            .summary {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">VELOURA</div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'products' %}">Products</a>
+        <a href="{% url 'cart' %}">My Cart</a>
+        <a href="{% url 'my_orders' %}">My Orders</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <h1>Your Shopping Cart</h1>
+
+    <p class="intro">
+        Your favourite beauty essentials, all in one place.
+    </p>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if cart_items %}
+
+        {% for item in cart_items %}
+
+            <section class="cart-item">
+
+                {% if item.product.image_url %}
+                    <img
+                        class="product-image"
+                        src="{{ item.product.image_url }}"
+                        alt="{{ item.product.name }}"
+                        loading="lazy"
+                    >
+                {% else %}
+                    <div class="image-placeholder">
+                        Image not available
+                    </div>
+                {% endif %}
+
+                <div class="product-info">
+
+                    <h3>
+                        {{ item.product.brand|default:"Beauty Brand" }}
+                    </h3>
+
+                    <p class="product-name">
+                        {{ item.product.name|default:"Beauty Product" }}
+                    </p>
+
+                    <p>
+                        Price:
+                        <span class="price">
+                            ₹{{ item.price|floatformat:2 }}
+                        </span>
+                    </p>
+
+                    <p class="price">
+                        Subtotal:
+                        ₹{{ item.subtotal|floatformat:2 }}
+                    </p>
+
+                </div>
+
+                <form
+                    class="quantity-form"
+                    method="POST"
+                    action="{% url 'update_cart' cart_id=item.cart_id %}"
+                >
+                    {% csrf_token %}
+
+                    <label for="quantity-{{ item.cart_id }}">Qty:</label>
+
+                    <input
+                        id="quantity-{{ item.cart_id }}"
+                        type="number"
+                        name="quantity"
+                        min="1"
+                        max="99"
+                        value="{{ item.quantity }}"
+                        required
+                    >
+
+                    <button class="update-btn" type="submit">
+                        Update
+                    </button>
+                </form>
+
+                <form
+                    method="POST"
+                    action="{% url 'remove_from_cart' cart_id=item.cart_id %}"
+                >
+                    {% csrf_token %}
+
+                    <button class="remove-btn" type="submit">
+                        Remove
+                    </button>
+                </form>
+
+            </section>
+
+        {% endfor %}
+
+        <section class="summary">
+
+            <h2>Order Summary</h2>
+
+            <div class="summary-row">
+                <span>Products in Cart</span>
+                <strong>{{ cart_items|length }}</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <strong>₹{{ total|floatformat:2 }}</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Delivery Charges</span>
+                <strong>FREE</strong>
+            </div>
+
+            <div class="summary-row grand-total">
+                <span>Total Amount</span>
+                <span>₹{{ total|floatformat:2 }}</span>
+            </div>
+
+            <div class="actions">
+
+                <a
+                    class="btn continue-btn"
+                    href="{% url 'products' %}"
+                >
+                    ← Continue Shopping
+                </a>
+
+                <a
+                    class="btn checkout-btn"
+                    href="{% url 'checkout' %}"
+                >
+                    Proceed to Checkout →
+                </a>
+
+            </div>
+
+        </section>
+
+    {% else %}
+
+        <section class="empty-cart">
+
+            <div class="empty-icon">🛍️</div>
+
+            <h2>Your Cart Is Empty</h2>
+
+            <p>
+                You haven't added any products yet.
+                Explore our beauty collection and find your favourites.
+            </p>
+
+            <a
+                class="btn checkout-btn"
+                href="{% url 'products' %}"
+            >
+                Explore Products
+            </a>
+
+        </section>
+
+    {% endif %}
+
+</main>
+
+<footer>
+    VELOURA — Beauty, of your own aura.
+</footer>
+
+</body>
+</html>
+
+
