@@ -6,8 +6,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In | VELOURA</title>
+
     <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <style>
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-wrapper input {
+            width: 100%;
+            box-sizing: border-box;
+            padding-right: 48px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 19px;
+            padding: 5px;
+            color: #946477;
+        }
+
+        .toggle-password:focus-visible {
+            outline: 2px solid #946477;
+            border-radius: 4px;
+        }
+    </style>
 </head>
+
 <body>
     <main class="auth-page">
         <div class="auth-layout">
@@ -27,6 +60,7 @@
             <section class="form-panel">
                 <div class="auth-card">
                     <h2>Welcome Back</h2>
+
                     <p class="auth-subtitle">
                         Sign in to continue your beauty journey.
                     </p>
@@ -40,16 +74,36 @@
 
                         <div class="form-group">
                             <label for="full_name">Full Name</label>
-                            <input type="text" id="full_name"
-                                   name="full_name" placeholder="Enter your full name"
-                                   autocomplete="username" required>
+                            <input
+                                type="text"
+                                id="full_name"
+                                name="full_name"
+                                placeholder="Enter your full name"
+                                autocomplete="username"
+                                required
+                            >
                         </div>
 
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" id="password"
-                                   name="password" placeholder="Enter your password"
-                                   autocomplete="current-password" required>
+
+                            <div class="password-wrapper">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="toggle-password"
+                                    aria-label="Show password"
+                                    aria-pressed="false"
+                                >👁</button>
+                            </div>
                         </div>
 
                         <button class="auth-button" type="submit">
@@ -66,6 +120,29 @@
 
         </div>
     </main>
+
+    <script>
+        const toggleButton = document.querySelector(".toggle-password");
+        const passwordInput = document.getElementById("password");
+
+        toggleButton.addEventListener("click", function () {
+            const isHidden = passwordInput.type === "password";
+
+            passwordInput.type = isHidden ? "text" : "password";
+            this.textContent = isHidden ? "🙈" : "👁";
+
+            this.setAttribute(
+                "aria-pressed",
+                isHidden ? "true" : "false"
+            );
+
+            this.setAttribute(
+                "aria-label",
+                isHidden ? "Hide password" : "Show password"
+            );
+        });
+    </script>
 </body>
 </html>
+
 
