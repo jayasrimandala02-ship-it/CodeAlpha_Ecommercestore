@@ -833,6 +833,7 @@ def my_orders(request):
 # VIEW ORDER
 # =====================================================
 
+
 def view_order(request, order_id):
     login_redirect = require_customer(request)
 
@@ -853,12 +854,30 @@ def view_order(request, order_id):
 
     order["id"] = str(order["_id"])
 
+    # Read the saved order date from MongoDB
+    order_date = (
+        order.get("order_date")
+        or order.get("created_at")
+        or order.get("createdAt")
+        or order.get("timestamp")
+    )
+
+    # Convert MongoDB datetime to a readable date and time
+    if order_date:
+        if hasattr(order_date, "strftime"):
+            order_date = order_date.strftime("%d-%m-%Y %I:%M %p")
+        else:
+            order_date = str(order_date)
+    else:
+        order_date = "Date not available"
+
     delivery = order.get("delivery_address", {})
 
     if not isinstance(delivery, dict):
         delivery = {"address": str(delivery)}
 
     order["delivery"] = delivery
+    order["display_order_date"] = order_date
 
     order.setdefault("order_status", "Placed")
     order.setdefault("payment_method", "COD")
@@ -871,6 +890,7 @@ def view_order(request, order_id):
         "delivery": delivery,
         "order_id": order["id"],
     })
+
 
 
 # =====================================================
