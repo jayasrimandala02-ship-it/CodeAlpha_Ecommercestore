@@ -151,7 +151,7 @@ Open the following URL in your browser:
 ## Live Website
 
 - **VELOURA Store:** https://veloura-store-ndz9.onrender.com
-- **Django Admin Panel:** https://veloura-store-ndz9.onrender.com/admin/
+- **VELOURA Store ADMIN-PAGE:** https://veloura-store-ndz9.onrender.com/admin-login/
 
 Note: Admin panel requires authorized administrator credentials.
 
