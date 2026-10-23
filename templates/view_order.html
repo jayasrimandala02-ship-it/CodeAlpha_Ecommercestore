@@ -27,7 +27,6 @@
         }
 
         header h1 {
-            margin: 0;
             color: #7d4359;
             letter-spacing: 5px;
             font-size: 28px;
@@ -159,14 +158,6 @@
             border-top: 1px solid #ead4da;
         }
 
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            margin: 8px 0;
-            color: #806b72;
-        }
-
         .total-final {
             display: flex;
             justify-content: space-between;
@@ -296,11 +287,7 @@
 
         <div class="detail">
             <strong>Order Date &amp; Time:</strong>
-            {% if order.display_order_date %}
-                {{ order.display_order_date|date:"d M Y, h:i A" }} IST
-            {% else %}
-                Date not available
-            {% endif %}
+            {{ order.display_order_date|default:"Date not available" }}
         </div>
 
         <div class="detail">
@@ -435,4 +422,3 @@
 
 </body>
 </html>
-
