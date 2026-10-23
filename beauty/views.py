@@ -140,23 +140,31 @@ def register(request):
 # SIGN IN AND LOGOUT
 # =====================================================
 
+
 def signin(request):
     if request.method == "POST":
-        full_name = request.POST.get("full_name", "").strip()
-        password = request.POST.get("password", "")
+        try:
+            full_name = request.POST.get("full_name", "").strip()
+            password = request.POST.get("password", "")
 
-        user = users_collection.find_one({"full_name": full_name})
+            user = users_collection.find_one({"full_name": full_name})
 
-        if user and check_password(password, user.get("password", "")):
-            request.session.flush()
-            request.session["user_id"] = str(user["_id"])
-            request.session["full_name"] = user.get("full_name", "")
-            request.session.set_expiry(60 * 60 * 24 * 7)
-            return redirect("home")
+            if user and check_password(password, user.get("password", "")):
+                request.session.flush()
+                request.session["user_id"] = str(user["_id"])
+                request.session["full_name"] = user.get("full_name", "")
+                request.session.set_expiry(60 * 60 * 24 * 7)
+                return redirect("home")
 
-        messages.error(request, "Invalid name or password.")
+            messages.error(request, "Invalid name or password.")
+
+        except Exception:
+            import logging
+            logging.exception("SIGNIN ERROR")
+            raise
 
     return render(request, "signin.html")
+
 
 
 def logout(request):
